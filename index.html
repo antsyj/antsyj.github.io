@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Blood Donation Eligibility Quiz 🩸</title>
+<title>🩸 Blood Donation Eligibility Quiz 🩸</title>
 <style>
   body {
     font-family: Arial, sans-serif;
-    max-width: 600px;
+    max-width: 650px;
     margin: 40px auto;
     background: #fff6f6;
     color: #800000;
@@ -17,7 +17,7 @@
   }
   h1 {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
   .question {
     margin-bottom: 20px;
@@ -63,137 +63,214 @@
     border-color: #009900;
     color: #006600;
   }
+  .lang-selector {
+    text-align: right;
+    margin-bottom: 20px;
+  }
 </style>
 </head>
 <body>
 
-<h1>🩸 Blood Donation Eligibility Quiz 🩸</h1>
+<h1 id="title">🩸 Blood Donation Eligibility Quiz 🩸</h1>
+
+<div class="lang-selector">
+  🌐 <label for="language" id="langLabel">Language:</label>
+  <select id="language">
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+  </select>
+</div>
 
 <form id="quizForm">
-  
-  <div class="question">
-    <span class="emoji">🩸</span><strong>1. Are you feeling healthy and well today?</strong>
+
+  <div class="question" data-key="q1">
+    <span class="emoji">🩸</span><strong>Are you feeling healthy and well today?</strong>
     <label><input type="radio" name="q1" value="yes" required> Yes</label>
     <label><input type="radio" name="q1" value="no"> No</label>
   </div>
 
-  <div class="question">
-    <span class="emoji">💉</span><strong>2. Are you between 17 and 65 years old?</strong>
+  <div class="question" data-key="q2">
+    <span class="emoji">💉</span><strong>Are you between 17 and 65 years old?</strong>
     <label><input type="radio" name="q2" value="yes" required> Yes</label>
     <label><input type="radio" name="q2" value="no"> No</label>
   </div>
 
-  <div class="question">
-    <span class="emoji">⚕️</span><strong>3. Do you weigh at least 110 lbs (50 kg)?</strong>
+  <div class="question" data-key="q3">
+    <span class="emoji">⚕️</span><strong>Do you weigh at least 110 lbs (50 kg)?</strong>
     <label><input type="radio" name="q3" value="yes" required> Yes</label>
     <label><input type="radio" name="q3" value="no"> No</label>
   </div>
 
-  <div class="question">
-    <span class="emoji">🌡️</span><strong>4. Have you had a cold, flu, or infection in the last 7 days?</strong>
+  <div class="question" data-key="q4">
+    <span class="emoji">🌡️</span><strong>Have you had a cold, flu, or infection in the last 7 days?</strong>
     <label><input type="radio" name="q4" value="no" required> No</label>
     <label><input type="radio" name="q4" value="yes"> Yes</label>
   </div>
 
-  <div class="question">
-    <span class="emoji">🩹</span><strong>5. Have you donated blood in the last 56 days?</strong>
+  <div class="question" data-key="q5">
+    <span class="emoji">🩹</span><strong>Have you donated blood in the last 56 days?</strong>
     <label><input type="radio" name="q5" value="no" required> No</label>
     <label><input type="radio" name="q5" value="yes"> Yes</label>
   </div>
 
-  <div class="question">
-    <span class="emoji">💊</span><strong>6. Are you currently taking any medication that your doctor said would disqualify you?</strong>
+  <div class="question" data-key="q6">
+    <span class="emoji">💊</span><strong>Are you currently taking any medication that your doctor said would disqualify you?</strong>
     <label><input type="radio" name="q6" value="no" required> No</label>
     <label><input type="radio" name="q6" value="yes"> Yes</label>
   </div>
 
-  <div class="question">
-    <span class="emoji">🤒</span><strong>7. Have you ever had hepatitis, HIV/AIDS, or other blood-borne infections?</strong>
+  <div class="question" data-key="q7">
+    <span class="emoji">🤒</span><strong>Have you ever had hepatitis, HIV/AIDS, or other blood-borne infections?</strong>
     <label><input type="radio" name="q7" value="no" required> No</label>
     <label><input type="radio" name="q7" value="yes"> Yes</label>
   </div>
 
-  <div class="question">
-    <span class="emoji">🩺</span><strong>8. Have you had any major surgery or tattoo in the past 12 months?</strong>
+  <div class="question" data-key="q8">
+    <span class="emoji">🩺</span><strong>Have you had any major surgery or tattoo in the past 12 months?</strong>
     <label><input type="radio" name="q8" value="no" required> No</label>
     <label><input type="radio" name="q8" value="yes"> Yes</label>
   </div>
 
-  <div class="question">
-    <span class="emoji">🤰</span><strong>9. Are you currently pregnant or breastfeeding?</strong>
+  <div class="question" data-key="q9">
+    <span class="emoji">🤰</span><strong>Are you currently pregnant or breastfeeding?</strong>
     <label><input type="radio" name="q9" value="no" required> No</label>
     <label><input type="radio" name="q9" value="yes"> Yes</label>
   </div>
 
-  <div class="question">
-    <span class="emoji">💔</span><strong>10. Do you have any heart problems or chronic diseases your doctor has warned about?</strong>
+  <div class="question" data-key="q10">
+    <span class="emoji">💔</span><strong>Do you have any heart problems or chronic diseases your doctor has warned about?</strong>
     <label><input type="radio" name="q10" value="no" required> No</label>
     <label><input type="radio" name="q10" value="yes"> Yes</label>
   </div>
 
-  <button type="submit">See My Result</button>
+  <button type="submit" id="submitBtn">See My Result</button>
 </form>
 
 <div id="result"></div>
 
 <script>
-  const form = document.getElementById('quizForm');
-  const resultDiv = document.getElementById('result');
+const translations = {
+  en: {
+    title: "🩸 Blood Donation Eligibility Quiz 🩸",
+    langLabel: "Language:",
+    questions: [
+      "Are you feeling healthy and well today?",
+      "Are you between 17 and 65 years old?",
+      "Do you weigh at least 110 lbs (50 kg)?",
+      "Have you had a cold, flu, or infection in the last 7 days?",
+      "Have you donated blood in the last 56 days?",
+      "Are you currently taking any medication that your doctor said would disqualify you?",
+      "Have you ever had hepatitis, HIV/AIDS, or other blood-borne infections?",
+      "Have you had any major surgery or tattoo in the past 12 months?",
+      "Are you currently pregnant or breastfeeding?",
+      "Do you have any heart problems or chronic diseases your doctor has warned about?"
+    ],
+    yes: "Yes",
+    no: "No",
+    submit: "See My Result",
+    eligible: "✅ Eligible to Donate:",
+    notEligible: "❌ Not Eligible:",
+    healthy: "You need to be feeling healthy to donate blood.",
+    congrats: "Congratulations! You are likely eligible to donate blood. Please visit your local donation center to confirm."
+  },
+  es: {
+    title: "🩸 Prueba de Elegibilidad para Donar Sangre 🩸",
+    langLabel: "Idioma:",
+    questions: [
+      "¿Te sientes saludable y bien hoy?",
+      "¿Tienes entre 17 y 65 años?",
+      "¿Pesas al menos 50 kg (110 libras)?",
+      "¿Has tenido un resfriado, gripe o infección en los últimos 7 días?",
+      "¿Has donado sangre en los últimos 56 días?",
+      "¿Estás tomando algún medicamento que tu médico dijo que te descalifica?",
+      "¿Has tenido hepatitis, VIH/SIDA u otras infecciones transmitidas por la sangre?",
+      "¿Te has hecho una cirugía importante o un tatuaje en los últimos 12 meses?",
+      "¿Estás embarazada o amamantando actualmente?",
+      "¿Tienes problemas cardíacos o enfermedades crónicas?"
+    ],
+    yes: "Sí",
+    no: "No",
+    submit: "Ver mi resultado",
+    eligible: "✅ Apto para Donar:",
+    notEligible: "❌ No Apto:",
+    healthy: "Debes sentirte saludable para donar sangre.",
+    congrats: "¡Felicidades! Probablemente seas elegible para donar sangre. Visita tu centro local para confirmar."
+  },
+  fr: {
+    title: "🩸 Test d'Éligibilité au Don de Sang 🩸",
+    langLabel: "Langue:",
+    questions: [
+      "Vous sentez-vous en bonne santé aujourd'hui?",
+      "Avez-vous entre 17 et 65 ans?",
+      "Pesez-vous au moins 50 kg (110 lb)?",
+      "Avez-vous eu un rhume, une grippe ou une infection au cours des 7 derniers jours?",
+      "Avez-vous donné du sang au cours des 56 derniers jours?",
+      "Prenez-vous actuellement un médicament qui pourrait vous disqualifier?",
+      "Avez-vous déjà eu l'hépatite, le VIH/SIDA ou d'autres infections sanguines?",
+      "Avez-vous subi une chirurgie majeure ou un tatouage au cours des 12 derniers mois?",
+      "Êtes-vous enceinte ou allaitez-vous actuellement?",
+      "Avez-vous des problèmes cardiaques ou des maladies chroniques?"
+    ],
+    yes: "Oui",
+    no: "Non",
+    submit: "Voir mon résultat",
+    eligible: "✅ Éligible pour Donner:",
+    notEligible: "❌ Non Éligible:",
+    healthy: "Vous devez être en bonne santé pour donner du sang.",
+    congrats: "Félicitations ! Vous êtes probablement éligible pour donner du sang. Veuillez visiter votre centre local pour confirmer."
+  }
+};
 
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
+const form = document.getElementById('quizForm');
+const resultDiv = document.getElementById('result');
+const langSelect = document.getElementById('language');
 
-    // Get all answers
-    const answers = new FormData(form);
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const answers = new FormData(form);
+  const lang = langSelect.value;
+  const t = translations[lang];
 
-    // Check eligibility rules:
-    // If any "no" where "yes" required, or any "yes" where "no" required, disqualify
+  if (answers.get('q1') !== 'yes') return showResult(false, t.healthy, lang);
+  if (answers.get('q2') !== 'yes') return showResult(false, t.notEligible + " " + t.questions[1], lang);
+  if (answers.get('q3') !== 'yes') return showResult(false, t.notEligible + " " + t.questions[2], lang);
 
-    // Questions where answer must be "yes" to be eligible: 1, 2, 3
-    if (answers.get('q1') !== 'yes') {
-      showResult(false, "You need to be feeling healthy to donate blood.");
-      return;
-    }
-    if (answers.get('q2') !== 'yes') {
-      showResult(false, "You must be between 17 and 65 years old to donate.");
-      return;
-    }
-    if (answers.get('q3') !== 'yes') {
-      showResult(false, "You must weigh at least 110 lbs (50 kg) to donate.");
-      return;
-    }
+  const disqualify = ['q4','q5','q6','q7','q8','q9','q10'];
+  for (const q of disqualify) {
+    if (answers.get(q) === 'yes') return showResult(false, t.notEligible + " " + t.questions[parseInt(q.replace('q',''))-1], lang);
+  }
 
-    // Questions where answer must be "no" to be eligible: 4,5,6,7,8,9,10
-    const disqualifyingQuestions = ['q4','q5','q6','q7','q8','q9','q10'];
-    for (const q of disqualifyingQuestions) {
-      if (answers.get(q) === 'yes') {
-        const reasons = {
-          q4: "You can't donate if you’ve had a cold, flu, or infection in the last 7 days.",
-          q5: "You need to wait at least 56 days between donations.",
-          q6: "Certain medications may disqualify you from donating.",
-          q7: "History of hepatitis, HIV/AIDS, or blood infections disqualifies you.",
-          q8: "Recent surgery or tattoos (within 12 months) can disqualify you.",
-          q9: "Pregnant or breastfeeding women cannot donate at this time.",
-          q10: "Certain heart or chronic conditions may prevent donation."
-        };
-        showResult(false, reasons[q]);
-        return;
-      }
-    }
+  showResult(true, t.congrats, lang);
+});
 
-    // If passed all checks:
-    showResult(true, "Congratulations! You are likely eligible to donate blood. Please visit your local blood donation center to confirm.");
+function showResult(isEligible, message, lang) {
+  const t = translations[lang];
+  if (isEligible) {
+    resultDiv.className = "eligible";
+    resultDiv.innerHTML = `${t.eligible}<br>${message}`;
+  } else {
+    resultDiv.className = "";
+    resultDiv.innerHTML = `${t.notEligible}<br>${message}`;
+  }
+}
+
+// Handle language switch
+langSelect.addEventListener('change', function() {
+  const lang = this.value;
+  const t = translations[lang];
+  document.getElementById('title').innerText = t.title;
+  document.getElementById('langLabel').innerText = t.langLabel;
+
+  document.querySelectorAll('.question').forEach((q, i) => {
+    q.querySelector('strong').innerText = t.questions[i];
+    const radios = q.querySelectorAll('label');
+    radios[0].innerHTML = `<input type="radio" name="q${i+1}" value="yes" required> ${t.yes}`;
+    radios[1].innerHTML = `<input type="radio" name="q${i+1}" value="no"> ${t.no}`;
   });
 
-  function showResult(isEligible, message) {
-    if (isEligible) {
-      resultDiv.className = "eligible";
-      resultDiv.innerHTML = "✅ <strong>Eligible to Donate:</strong><br>" + message;
-    } else {
-      resultDiv.className = "";
-      resultDiv.innerHTML = "❌ <strong>Not Eligible:</strong><br>" + message;
-    }
-  }
+  document.getElementById('submitBtn').innerText = t.submit;
+});
 </script>
 
 </body>
