@@ -1,277 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>🩸 Blood Donation Eligibility Quiz 🩸</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blood Donation Eligibility Quiz 🩸</title>
 <style>
   body {
     font-family: Arial, sans-serif;
-    max-width: 650px;
-    margin: 40px auto;
-    background: #fff6f6;
-    color: #800000;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px #f2a1a1;
+    background: linear-gradient(-45deg, #ff6b6b, #ffdd59, #48dbfb, #1dd1a1);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  @keyframes gradientBG {
+    0% {background-position:0% 50%}
+    50% {background-position:100% 50%}
+    100% {background-position:0% 50%}
+  }
+  .quiz-container {
+    background: rgba(255,255,255,0.95);
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 700px;
+    width: 95%;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
   }
   h1 {
     text-align: center;
-    margin-bottom: 15px;
   }
   .question {
-    margin-bottom: 20px;
+    margin: 20px 0;
+    font-size: 18px;
   }
-  .emoji {
-    font-size: 1.4em;
-    margin-right: 8px;
-  }
-  label {
+  .btn {
     display: block;
-    margin: 6px 0;
-    cursor: pointer;
-  }
-  input[type="radio"] {
-    margin-right: 8px;
-    cursor: pointer;
-  }
-  button {
-    background-color: #800000;
-    color: white;
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    font-size: 18px;
     border: none;
-    padding: 12px 25px;
-    border-radius: 6px;
-    font-size: 1.1em;
-    cursor: pointer;
-    display: block;
-    margin: 30px auto 10px;
-  }
-  button:hover {
-    background-color: #a00000;
-  }
-  #result {
-    margin-top: 30px;
-    background: #ffdddd;
-    border: 2px solid #cc0000;
-    padding: 20px;
     border-radius: 8px;
-    font-size: 1.3em;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .yes-btn {background-color: #1dd1a1; color: white;}
+  .no-btn {background-color: #ee5253; color: white;}
+  .btn:hover {opacity: 0.85;}
+  .result {
     text-align: center;
+    font-size: 22px;
   }
-  #result.eligible {
-    background: #ddffdd;
-    border-color: #009900;
-    color: #006600;
+  .language-toggle {
+    text-align: center;
+    margin-bottom: 10px;
   }
-  .lang-selector {
-    text-align: right;
-    margin-bottom: 20px;
+  .language-toggle button {
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;
+    font-size: 16px;
   }
 </style>
 </head>
 <body>
-
-<h1 id="title">🩸 Blood Donation Eligibility Quiz 🩸</h1>
-
-<div class="lang-selector">
-  🌐 <label for="language" id="langLabel">Language:</label>
-  <select id="language">
-    <option value="en">English</option>
-    <option value="es">Español</option>
-    <option value="fr">Français</option>
-  </select>
+<div class="quiz-container">
+  <div class="language-toggle">
+    <button onclick="setLanguage('en')">🇺🇸 English</button>
+    <button onclick="setLanguage('es')">🇪🇸 Español</button>
+    <button onclick="setLanguage('fr')">🇫🇷 Français</button>
+    <button onclick="setLanguage('de')">🇩🇪 Deutsch</button>
+    <button onclick="setLanguage('ar')">🇸🇦 العربية</button>
+    <button onclick="setLanguage('zh')">🇨🇳 中文</button>
+    <button onclick="setLanguage('ru')">🇷🇺 Русский</button>
+  </div>
+  <h1 id="quiz-title">🩸 Blood Donation Eligibility Quiz</h1>
+  <div id="quiz-content"></div>
+  <div id="result" class="result"></div>
 </div>
 
-<form id="quizForm">
-
-  <div class="question" data-key="q1">
-    <span class="emoji">🩸</span><strong>Are you feeling healthy and well today?</strong>
-    <label><input type="radio" name="q1" value="yes" required> Yes</label>
-    <label><input type="radio" name="q1" value="no"> No</label>
-  </div>
-
-  <div class="question" data-key="q2">
-    <span class="emoji">💉</span><strong>Are you between 17 and 65 years old?</strong>
-    <label><input type="radio" name="q2" value="yes" required> Yes</label>
-    <label><input type="radio" name="q2" value="no"> No</label>
-  </div>
-
-  <div class="question" data-key="q3">
-    <span class="emoji">⚕️</span><strong>Do you weigh at least 110 lbs (50 kg)?</strong>
-    <label><input type="radio" name="q3" value="yes" required> Yes</label>
-    <label><input type="radio" name="q3" value="no"> No</label>
-  </div>
-
-  <div class="question" data-key="q4">
-    <span class="emoji">🌡️</span><strong>Have you had a cold, flu, or infection in the last 7 days?</strong>
-    <label><input type="radio" name="q4" value="no" required> No</label>
-    <label><input type="radio" name="q4" value="yes"> Yes</label>
-  </div>
-
-  <div class="question" data-key="q5">
-    <span class="emoji">🩹</span><strong>Have you donated blood in the last 56 days?</strong>
-    <label><input type="radio" name="q5" value="no" required> No</label>
-    <label><input type="radio" name="q5" value="yes"> Yes</label>
-  </div>
-
-  <div class="question" data-key="q6">
-    <span class="emoji">💊</span><strong>Are you currently taking any medication that your doctor said would disqualify you?</strong>
-    <label><input type="radio" name="q6" value="no" required> No</label>
-    <label><input type="radio" name="q6" value="yes"> Yes</label>
-  </div>
-
-  <div class="question" data-key="q7">
-    <span class="emoji">🤒</span><strong>Have you ever had hepatitis, HIV/AIDS, or other blood-borne infections?</strong>
-    <label><input type="radio" name="q7" value="no" required> No</label>
-    <label><input type="radio" name="q7" value="yes"> Yes</label>
-  </div>
-
-  <div class="question" data-key="q8">
-    <span class="emoji">🩺</span><strong>Have you had any major surgery or tattoo in the past 12 months?</strong>
-    <label><input type="radio" name="q8" value="no" required> No</label>
-    <label><input type="radio" name="q8" value="yes"> Yes</label>
-  </div>
-
-  <div class="question" data-key="q9">
-    <span class="emoji">🤰</span><strong>Are you currently pregnant or breastfeeding?</strong>
-    <label><input type="radio" name="q9" value="no" required> No</label>
-    <label><input type="radio" name="q9" value="yes"> Yes</label>
-  </div>
-
-  <div class="question" data-key="q10">
-    <span class="emoji">💔</span><strong>Do you have any heart problems or chronic diseases your doctor has warned about?</strong>
-    <label><input type="radio" name="q10" value="no" required> No</label>
-    <label><input type="radio" name="q10" value="yes"> Yes</label>
-  </div>
-
-  <button type="submit" id="submitBtn">See My Result</button>
-</form>
-
-<div id="result"></div>
-
 <script>
-const translations = {
-  en: {
-    title: "🩸 Blood Donation Eligibility Quiz 🩸",
-    langLabel: "Language:",
-    questions: [
-      "Are you feeling healthy and well today?",
-      "Are you between 17 and 65 years old?",
-      "Do you weigh at least 110 lbs (50 kg)?",
-      "Have you had a cold, flu, or infection in the last 7 days?",
-      "Have you donated blood in the last 56 days?",
-      "Are you currently taking any medication that your doctor said would disqualify you?",
-      "Have you ever had hepatitis, HIV/AIDS, or other blood-borne infections?",
-      "Have you had any major surgery or tattoo in the past 12 months?",
-      "Are you currently pregnant or breastfeeding?",
-      "Do you have any heart problems or chronic diseases your doctor has warned about?"
-    ],
-    yes: "Yes",
-    no: "No",
-    submit: "See My Result",
-    eligible: "✅ Eligible to Donate:",
-    notEligible: "❌ Not Eligible:",
-    healthy: "You need to be feeling healthy to donate blood.",
-    congrats: "Congratulations! You are likely eligible to donate blood. Please visit your local donation center to confirm."
-  },
-  es: {
-    title: "🩸 Prueba de Elegibilidad para Donar Sangre 🩸",
-    langLabel: "Idioma:",
-    questions: [
-      "¿Te sientes saludable y bien hoy?",
-      "¿Tienes entre 17 y 65 años?",
-      "¿Pesas al menos 50 kg (110 libras)?",
-      "¿Has tenido un resfriado, gripe o infección en los últimos 7 días?",
-      "¿Has donado sangre en los últimos 56 días?",
-      "¿Estás tomando algún medicamento que tu médico dijo que te descalifica?",
-      "¿Has tenido hepatitis, VIH/SIDA u otras infecciones transmitidas por la sangre?",
-      "¿Te has hecho una cirugía importante o un tatuaje en los últimos 12 meses?",
-      "¿Estás embarazada o amamantando actualmente?",
-      "¿Tienes problemas cardíacos o enfermedades crónicas?"
-    ],
-    yes: "Sí",
-    no: "No",
-    submit: "Ver mi resultado",
-    eligible: "✅ Apto para Donar:",
-    notEligible: "❌ No Apto:",
-    healthy: "Debes sentirte saludable para donar sangre.",
-    congrats: "¡Felicidades! Probablemente seas elegible para donar sangre. Visita tu centro local para confirmar."
-  },
-  fr: {
-    title: "🩸 Test d'Éligibilité au Don de Sang 🩸",
-    langLabel: "Langue:",
-    questions: [
-      "Vous sentez-vous en bonne santé aujourd'hui?",
-      "Avez-vous entre 17 et 65 ans?",
-      "Pesez-vous au moins 50 kg (110 lb)?",
-      "Avez-vous eu un rhume, une grippe ou une infection au cours des 7 derniers jours?",
-      "Avez-vous donné du sang au cours des 56 derniers jours?",
-      "Prenez-vous actuellement un médicament qui pourrait vous disqualifier?",
-      "Avez-vous déjà eu l'hépatite, le VIH/SIDA ou d'autres infections sanguines?",
-      "Avez-vous subi une chirurgie majeure ou un tatouage au cours des 12 derniers mois?",
-      "Êtes-vous enceinte ou allaitez-vous actuellement?",
-      "Avez-vous des problèmes cardiaques ou des maladies chroniques?"
-    ],
-    yes: "Oui",
-    no: "Non",
-    submit: "Voir mon résultat",
-    eligible: "✅ Éligible pour Donner:",
-    notEligible: "❌ Non Éligible:",
-    healthy: "Vous devez être en bonne santé pour donner du sang.",
-    congrats: "Félicitations ! Vous êtes probablement éligible pour donner du sang. Veuillez visiter votre centre local pour confirmer."
-  }
-};
+let language = 'en';
+let currentQuestion = 0;
+let eligible = true;
 
-const form = document.getElementById('quizForm');
-const resultDiv = document.getElementById('result');
-const langSelect = document.getElementById('language');
+const questions = [
+  {emoji: "🎂", en:"Are you 17 years or older (or 16 with parent/guardian consent)?", es:"¿Tienes 17 años o más (o 16 con consentimiento de padres/tutores)?", fr:"Avez-vous 17 ans ou plus (ou 16 avec consentement parental)?", de:"Sind Sie 17 Jahre oder älter (oder 16 mit Zustimmung der Eltern)?", ar:"هل عمرك 17 سنة أو أكثر (أو 16 بموافقة الوالدين)؟", zh:"您是否年满17岁（或16岁需父母同意）？", ru:"Вам 17 лет или больше (или 16 с согласия родителей)?", yesEligible:true},
+  {emoji: "⚖️", en:"Do you weigh at least 110 lbs (≈ 50 kg)?", es:"¿Pesas al menos 50 kg (≈110 libras)?", fr:"Pesez-vous au moins 50 kg (≈110 lbs)?", de:"Wiegen Sie mindestens 50 kg (≈110 lbs)?", ar:"هل تزن 50 كجم على الأقل؟", zh:"您的体重至少为50公斤（≈110磅）吗？", ru:"Ваш вес не менее 50 кг (≈110 фунтов)?", yesEligible:true},
+  {emoji: "💪", en:"Are you feeling healthy and well today, with no cold, flu, or infection symptoms?", es:"¿Te sientes saludable y bien hoy, sin síntomas de resfriado, gripe o infección?", fr:"Vous sentez-vous en bonne santé aujourd'hui, sans symptômes de rhume, grippe ou infection?", de:"Fühlen Sie sich heute gesund, ohne Erkältungs-, Grippe- oder Infektionssymptome?", ar:"هل تشعر بصحة جيدة اليوم، دون أعراض نزلة برد أو إنفلونزا أو عدوى؟", zh:"您今天感觉健康，无感冒、流感或感染症状吗？", ru:"Вы чувствуете себя здоровым сегодня, без симптомов простуды, гриппа или инфекции?", yesEligible:true},
+  {emoji: "🩸", en:"Has it been at least 56 days since your last whole-blood donation?", es:"¿Han pasado al menos 56 días desde tu última donación de sangre completa?", fr:"Cela fait-il au moins 56 jours depuis votre dernier don de sang total?", de:"Sind seit Ihrer letzten Vollblutspende mindestens 56 Tage vergangen?", ar:"هل مر 56 يومًا على الأقل منذ آخر تبرع بالدم الكامل؟", zh:"自您上次全血捐献以来是否已至少56天？", ru:"Прошло ли как минимум 56 дней с момента вашего последнего донорства цельной крови?", yesEligible:true},
+  {emoji: "🌍", en:"In the past 3 years, have you lived in or travelled to a malaria-risk area or other deferred regions?", es:"En los últimos 3 años, ¿has vivido o viajado a un área con riesgo de malaria u otras regiones con restricción?", fr:"Au cours des 3 dernières années, avez-vous vécu ou voyagé dans une zone à risque de paludisme ou d'autres régions différées?", de:"Haben Sie in den letzten 3 Jahren in einem Malariagebiet oder anderen gesperrten Regionen gelebt oder sind dorthin gereist?", ar:"هل عشت أو سافرت إلى منطقة عالية المخاطر للملاريا أو مناطق مؤجلة أخرى خلال السنوات الثلاث الماضية؟", zh:"在过去3年中，您是否居住或前往疟疾高风险地区或其他限制地区？", ru:"За последние 3 года вы жили или путешествовали в зону риска малярии или другие регионы с отсрочкой?", yesEligible:false},
+  {emoji: "❤️", en:"In the past 3 months, have you had a new sexual partner or multiple partners?", es:"En los últimos 3 meses, ¿has tenido una nueva pareja sexual o múltiples parejas?", fr:"Au cours des 3 derniers mois, avez-vous eu un nouveau partenaire sexuel ou plusieurs partenaires?", de:"Haben Sie in den letzten 3 Monaten einen neuen oder mehrere Sexualpartner gehabt?", ar:"هل كان لديك شريك جنسي جديد أو عدة شركاء في الأشهر الثلاثة الماضية؟", zh:"在过去3个月中，您是否有新的性伴侣或多个伴侣？", ru:"За последние 3 месяца у вас был новый сексуальный партнер или несколько партнеров?", yesEligible:false},
+  {emoji: "🤰", en:"Are you currently pregnant or have you given birth in the past 6 weeks?", es:"¿Estás actualmente embarazada o has dado a luz en las últimas 6 semanas?", fr:"Êtes-vous actuellement enceinte ou avez-vous accouché au cours des 6 dernières semaines?", de:"Sind Sie derzeit schwanger oder haben Sie in den letzten 6 Wochen entbunden?", ar:"هل أنت حاليًا حامل أو ولدت خلال الأسابيع الستة الماضية؟", zh:"您目前怀孕吗，或者在过去6周内分娩过吗？", ru:"Вы в настоящее время беременны или родили за последние 6 недель?", yesEligible:false},
+  {emoji: "💊", en:"In the past 3 months, have you taken medications like PrEP/PEP or been told you have HIV/AIDS?", es:"En los últimos 3 meses, ¿has tomado medicamentos como PrEP/PEP o te han dicho que tienes VIH/SIDA?", fr:"Au cours des 3 derniers mois, avez-vous pris des médicaments comme PrEP/PEP ou on vous a dit que vous avez le VIH/SIDA?", de:"Haben Sie in den letzten 3 Monaten Medikamente wie PrEP/PEP genommen oder wurde Ihnen gesagt, dass Sie HIV/AIDS haben?", ar:"هل تناولت أدوية مثل PrEP/PEP أو تم إعلامك بأن لديك فيروس HIV/الإيدز خلال الأشهر الثلاثة الماضية؟", zh:"在过去3个月中，您是否服用过PrEP/PEP等药物或被告知感染HIV/AIDS？", ru:"За последние 3 месяца вы принимали препараты типа PrEP/PEP или вам сказали, что у вас ВИЧ/СПИД?", yesEligible:false},
+  {emoji: "🖋️", en:"In the past 3 months, have you had a tattoo or piercing in an unlicensed facility, or major surgery?", es:"En los últimos 3 meses, ¿has tenido un tatuaje o piercing en un lugar no autorizado, o una cirugía mayor?", fr:"Au cours des 3 derniers mois, avez-vous eu un tatouage ou un piercing dans un établissement non autorisé ou une chirurgie majeure?", de:"Haben Sie in den letzten 3 Monaten ein Tattoo oder Piercing in einem nicht lizenzierten Studio oder eine größere Operation gehabt?", ar:"هل حصلت على وشم أو ثقب في منشأة غير مرخصة، أو خضعت لجراحة كبرى خلال الأشهر الثلاثة الماضية؟", zh:"在过去3个月中，您是否在未经许可的机构进行了纹身或穿刺，或进行了重大手术？", ru:"За последние 3 месяца у вас была татуировка или пирсинг в нелицензированном месте, или вы перенесли крупную операцию?", yesEligible:false},
+  {emoji: "🏥", en:"Do you have any health condition (e.g., heart disease, cancer, chronic infections) that may prevent you from donating?", es:"¿Tiene alguna condición de salud (por ejemplo, enfermedad cardíaca, cáncer, infecciones crónicas) que le impida donar?", fr:"Avez-vous une condition médicale (ex : maladie cardiaque, cancer, infections chroniques) qui pourrait vous empêcher de donner du sang ?", de:"Haben Sie eine gesundheitliche Erkrankung (z. B. Herzkrankheit, Krebs, chronische Infektionen), die Sie vom Blutspenden abhalten könnte?", ar:"هل لديك أي حالة صحية (مثل أمراض القلب أو السرطان أو العدوى المزمنة) قد تمنعك من التبرع؟", zh:"您是否有任何可能阻止您献血的健康状况（如心脏病、癌症、慢性感染）？", ru:"Есть ли у вас какое-либо заболевание (например, сердечное заболевание, рак, хроническая инфекция), которое может помешать вам сдавать кровь?", yesEligible:false}
+];
 
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const answers = new FormData(form);
-  const lang = langSelect.value;
-  const t = translations[lang];
-
-  if (answers.get('q1') !== 'yes') return showResult(false, t.healthy, lang);
-  if (answers.get('q2') !== 'yes') return showResult(false, t.notEligible + " " + t.questions[1], lang);
-  if (answers.get('q3') !== 'yes') return showResult(false, t.notEligible + " " + t.questions[2], lang);
-
-  const disqualify = ['q4','q5','q6','q7','q8','q9','q10'];
-  for (const q of disqualify) {
-    if (answers.get(q) === 'yes') return showResult(false, t.notEligible + " " + t.questions[parseInt(q.replace('q',''))-1], lang);
-  }
-
-  showResult(true, t.congrats, lang);
-});
-
-function showResult(isEligible, message, lang) {
-  const t = translations[lang];
-  if (isEligible) {
-    resultDiv.className = "eligible";
-    resultDiv.innerHTML = `${t.eligible}<br>${message}`;
-  } else {
-    resultDiv.className = "";
-    resultDiv.innerHTML = `${t.notEligible}<br>${message}`;
-  }
+function setLanguage(lang) {
+  language = lang;
+  currentQuestion = 0;
+  eligible = true;
+  document.getElementById('result').innerHTML = '';
+  showQuestion();
 }
 
-// Handle language switch
-langSelect.addEventListener('change', function() {
-  const lang = this.value;
-  const t = translations[lang];
-  document.getElementById('title').innerText = t.title;
-  document.getElementById('langLabel').innerText = t.langLabel;
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    showResult();
+    return;
+  }
+  const q = questions[currentQuestion];
+  document.getElementById('quiz-content').innerHTML = `
+    <div class="question">${q.emoji} ${q[language]}</div>
+    <button class="btn yes-btn" onclick="answer(true)">✅ Yes</button>
+    <button class="btn no-btn" onclick="answer(false)">❌ No</button>
+  `;
+}
 
-  document.querySelectorAll('.question').forEach((q, i) => {
-    q.querySelector('strong').innerText = t.questions[i];
-    const radios = q.querySelectorAll('label');
-    radios[0].innerHTML = `<input type="radio" name="q${i+1}" value="yes" required> ${t.yes}`;
-    radios[1].innerHTML = `<input type="radio" name="q${i+1}" value="no"> ${t.no}`;
-  });
+function answer(userAnswer) {
+  const q = questions[currentQuestion];
+  if ((userAnswer && !q.yesEligible) || (!userAnswer && q.yesEligible)) {
+    eligible = false;
+  }
+  currentQuestion++;
+  showQuestion();
+}
 
-  document.getElementById('submitBtn').innerText = t.submit;
-});
+function showResult() {
+  const text = eligible ? "🎉 You are likely eligible to donate blood!" : "⚠️ Based on your answers, you may not be eligible to donate blood.";
+  document.getElementById('quiz-content').innerHTML = '';
+  document.getElementById('result').innerHTML = text;
+}
+
+showQuestion();
 </script>
-
 </body>
 </html>
